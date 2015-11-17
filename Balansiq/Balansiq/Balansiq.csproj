@@ -55,6 +55,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -86,8 +87,11 @@
     <Compile Include="DB\DBExceptions.cs" />
     <Compile Include="DB\DBManager.cs" />
     <Compile Include="Entities\Filter.cs" />
+    <Compile Include="Entities\IItem.cs" />
+    <Compile Include="Entities\IncomeFilter.cs" />
     <Compile Include="Entities\IncomeItem.cs" />
     <Compile Include="Entities\SpendFilter.cs" />
+    <Compile Include="Entities\SpendFilterType.cs" />
     <Compile Include="Entities\SpendItem.cs" />
     <Compile Include="Windows\MainWindow.cs">
       <SubType>Form</SubType>
@@ -114,6 +118,7 @@
     <None Include="bin\Release\System.Data.SQLite.dll.config" />
     <None Include="bin\Debug\Data\userData.sl3" />
     <None Include="bin\Debug\System.Data.SQLite.dll.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="DB\userData.sl3" />
     <None Include="Lib\System.Data.SQLite.dll.config" />
     <None Include="packages.config" />

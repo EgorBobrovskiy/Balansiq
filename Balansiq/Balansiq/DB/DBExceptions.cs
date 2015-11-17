@@ -8,7 +8,7 @@ namespace Balansiq.DB
 {
     class DBExceptions : Exception
     {
-        public String title;
+        public String Title { get; set; }
 
         public DBExceptions()
             : this(String.Empty)
@@ -21,7 +21,7 @@ namespace Balansiq.DB
         public DBExceptions(String message, String title)
             : base(message)
         {
-            this.title = title;
+            this.Title = title;
         }
     }
 

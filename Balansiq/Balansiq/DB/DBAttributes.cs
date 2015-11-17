@@ -8,13 +8,24 @@ namespace Balansiq.DB
 {
     class DBAttributes
     {
-        public static readonly List<Type> attributes = new List<Type>()
+        public static readonly Dictionary<Type, string> Attributes = new Dictionary<Type, string>()
         {
-            typeof(Ignore),
-            typeof(NotNull),
-            typeof(AutoIncrement),
-            typeof(PrimaryKey),
-            typeof(Unique)
+            {typeof(Ignore), string.Empty},
+            {typeof(NotNull), "NOT NULL"},
+            {typeof(AutoIncrement), "AUTOINCREMENT"},
+            {typeof(PrimaryKey), "PRIMARY KEY"},
+            {typeof(Unique), "UNIQUE"},
+            {typeof(ForeignKey), string.Empty}
+        };
+
+        public static readonly Dictionary<Type, string> TypeNames = new Dictionary<Type, string>()
+        {
+            {typeof(long?), "INTEGER"},
+            {typeof(int?), "INTEGER"},
+            {typeof(int), "INTEGER"},
+            {typeof(double), "REAL"},
+            {typeof(string), "TEXT"},
+            {typeof(DateTime), "INTEGER"}
         };
     }
 
@@ -32,4 +43,7 @@ namespace Balansiq.DB
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     class Ignore : Attribute { }
+
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
+    class ForeignKey : Attribute { }
 }
