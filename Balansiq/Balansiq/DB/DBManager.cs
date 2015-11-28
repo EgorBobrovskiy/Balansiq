@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Balansiq.Entities;
+using Balansiq.DB.Entities;
 using System.Data.SQLite;
 
 namespace Balansiq.DB
 {
-    public enum DataTable
+    public enum DataTableType
     {
         IncomeData,
         IncomeFilters,
@@ -17,15 +17,15 @@ namespace Balansiq.DB
         SpendFilterTypes
     }
 
-    class DBManager
+    public class DBManager
     {
-        private static readonly Dictionary<DataTable, Tuple<string, Type>> Tables = new Dictionary<DataTable, Tuple<string, Type>>()
+        private static readonly Dictionary<DataTableType, Tuple<string, Type>> Tables = new Dictionary<DataTableType, Tuple<string, Type>>()
         {
-           {DataTable.IncomeData, new Tuple<string, Type>("INCOME_DATA", typeof(IncomeItem))},
-           {DataTable.IncomeFilters, new Tuple<string, Type>("INCOME_FILTERS", typeof(IncomeFilter))},
-           {DataTable.SpendData, new Tuple<string, Type>("SPEND_DATA", typeof(SpendItem))},
-           {DataTable.SpendFilters, new Tuple<string, Type>("SPEND_FILTERS", typeof(SpendFilter))},
-           {DataTable.SpendFilterTypes, new Tuple<string, Type>("SPEND_FILTER_TYPES", typeof(SpendFilterType))}
+           {DataTableType.IncomeData, new Tuple<string, Type>("INCOME_DATA", typeof(IncomeItem))},
+           {DataTableType.IncomeFilters, new Tuple<string, Type>("INCOME_FILTERS", typeof(IncomeFilter))},
+           {DataTableType.SpendData, new Tuple<string, Type>("SPEND_DATA", typeof(SpendItem))},
+           {DataTableType.SpendFilters, new Tuple<string, Type>("SPEND_FILTERS", typeof(SpendFilter))},
+           {DataTableType.SpendFilterTypes, new Tuple<string, Type>("SPEND_FILTER_TYPES", typeof(SpendFilterType))}
         };
 
         private static readonly string Q_GET_TABLE_INFO_FORMAT = "SELECT * FROM sqlite_master WHERE type='table' AND name='{0}';";
@@ -54,7 +54,7 @@ namespace Balansiq.DB
             }
         }
 
-        private static bool TableExists(DataTable table)
+        private static bool TableExists(DataTableType table)
         {
             return ExecuteReader(string.Format(Q_GET_TABLE_INFO_FORMAT, Tables[table].Item1)).HasRows;
         }
@@ -89,7 +89,7 @@ namespace Balansiq.DB
             return obj;
         }
 
-        public static string CreateTableQuery(DataTable table, Type item)
+        public static string CreateTableQuery(DataTableType table, Type item)
         {
             ForeignKey = string.Empty;
             var createParams = new StringBuilder();
@@ -103,7 +103,7 @@ namespace Balansiq.DB
             }
             else
             {
-                var fk = (KeyValuePair<DataTable, string>?)item.GetProperty("ForeignKey").GetValue(null, null);
+                var fk = (KeyValuePair<DataTableType, string>?)item.GetProperty("ForeignKey").GetValue(null, null);
                 if (fk != null)
                 {
                     createParams.AppendFormat('\n' + Q_FOREIGN_KEY_FORMAT, ForeignKey, Tables[fk.Value.Key].Item1, fk.Value.Value);
@@ -157,58 +157,61 @@ namespace Balansiq.DB
 
         public static void CreateOrUpdateItem(IItem item)
         {
-            var itemValues = item.GetType().GetProperties().Reverse()
-                .Where(e => e.CustomAttributes.FirstOrDefault(ca => ca.AttributeType == typeof(Ignore)) == null)
-                .ToDictionary(k => k.Name, v => v.GetValue(item, null));
-
-            if (item.Id == null)
+            if (item != null)
             {
-                // Create
-                StringBuilder columns = new StringBuilder();
-                StringBuilder values = new StringBuilder();
+                var itemValues = item.GetType().GetProperties().Reverse()
+                    .Where(e => e.CustomAttributes.FirstOrDefault(ca => ca.AttributeType == typeof(Ignore)) == null)
+                    .ToDictionary(k => k.Name, v => v.GetValue(item, null));
 
-                foreach (var iv in itemValues.Where(iv => iv.Key.ToLower() != "id"))
+                if (item.Id == null)
                 {
-                    DateTime? date = iv.Value as DateTime?;
-                    string valstr = (date == null)
-                        ? iv.Value.ToString()
-                        : date.Value.ToString("yy-MM-dd");
-                    columns.Append(iv.Key + ',');
-                    values.Append(String.Format("'{0}',", valstr));
+                    // Create
+                    StringBuilder columns = new StringBuilder();
+                    StringBuilder values = new StringBuilder();
+
+                    foreach (var iv in itemValues.Where(iv => iv.Key.ToLower() != "id"))
+                    {
+                        DateTime? date = iv.Value as DateTime?;
+                        string valstr = (date == null)
+                            ? iv.Value.ToString()
+                            : date.Value.ToString("yy-MM-dd");
+                        columns.Append(iv.Key + ',');
+                        values.Append(String.Format("'{0}',", valstr));
+                    }
+                    columns.Remove(columns.Length - 1, 1);
+                    values.Remove(values.Length - 1, 1);
+
+                    var table = Tables.Values.FirstOrDefault(t => t.Item2 == item.GetType()).Item1;
+                    String sql = String.Format(Q_INSERT_FORMAT, table, columns, values);
+                    ExecuteNonQuery(sql);
+
+                    object i = ExecuteScalar(Q_GET_LAST_INSERT_ROWID);
+
+                    if (i != null)
+                    {
+                        item.Id = (long)i;
+                    }
                 }
-                columns.Remove(columns.Length - 1, 1);
-                values.Remove(values.Length - 1, 1);
-
-                var table = Tables.Values.FirstOrDefault(t => t.Item2 == item.GetType()).Item1;
-                String sql = String.Format(Q_INSERT_FORMAT, table, columns, values);
-                ExecuteNonQuery(sql);
-
-                object i = ExecuteScalar(Q_GET_LAST_INSERT_ROWID);
-
-                if (i != null)
+                else
                 {
-                    item.Id = (long)i;
-                }
-            }
-            else
-            {
-                // Update
-                StringBuilder values = new StringBuilder();
-                String id = String.Format("Id='{0}'", itemValues.FirstOrDefault(iv => iv.Key.ToLower() == "id").Value.ToString());
-                var table = Tables.Values.FirstOrDefault(t => t.Item2 == item.GetType()).Item1;
+                    // Update
+                    StringBuilder values = new StringBuilder();
+                    String id = String.Format("Id='{0}'", itemValues.FirstOrDefault(iv => iv.Key.ToLower() == "id").Value.ToString());
+                    var table = Tables.Values.FirstOrDefault(t => t.Item2 == item.GetType()).Item1;
 
-                foreach (var iv in itemValues.Where(iv => iv.Key.ToLower() != "id"))
-                {
-                    DateTime? date = iv.Value as DateTime?;
-                    string valstr = (date == null)
-                        ? iv.Value.ToString()
-                        : date.Value.ToString("yy-MM-dd");
-                    values.Append(String.Format("{0}='{1}',", iv.Key, valstr));
-                }
-                values.Remove(values.Length - 1, 1);
+                    foreach (var iv in itemValues.Where(iv => iv.Key.ToLower() != "id"))
+                    {
+                        DateTime? date = iv.Value as DateTime?;
+                        string valstr = (date == null)
+                            ? iv.Value.ToString()
+                            : date.Value.ToString("yy-MM-dd");
+                        values.Append(String.Format("{0}='{1}',", iv.Key, valstr));
+                    }
+                    values.Remove(values.Length - 1, 1);
 
-                String sql = String.Format(Q_UPDATE_FORMAT, table, values, id);
-                ExecuteNonQuery(sql);
+                    String sql = String.Format(Q_UPDATE_FORMAT, table, values, id);
+                    ExecuteNonQuery(sql);
+                }
             }
         }
 
@@ -264,8 +267,7 @@ namespace Balansiq.DB
                 SpendData[key].Add(si);
             }
         }
-
-
+        
         private static List<T> GetItems<T>() where T: IItem
         {
             List<T> ret = new List<T>();

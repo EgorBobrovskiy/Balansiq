@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Balansiq.Entities
+namespace Balansiq.DB.Entities
 {
-    class IncomeFilter : Filter
+    public class IncomeFilter : Filter
     {
         public IncomeFilter() : base() { }
         public IncomeFilter(string name) : base(name) { }

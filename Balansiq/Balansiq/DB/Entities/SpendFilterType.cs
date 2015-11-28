@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Balansiq.Entities
+namespace Balansiq.DB.Entities
 {
-    class SpendFilterType : Filter
+    public class SpendFilterType : Filter
     {
         public SpendFilterType() : base() { }
         public SpendFilterType(string name) : this(null, name) { }

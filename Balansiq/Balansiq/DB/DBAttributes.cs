@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Balansiq.DB
 {
-    class DBAttributes
+    sealed class DBAttributes
     {
         public static readonly Dictionary<Type, string> Attributes = new Dictionary<Type, string>()
         {

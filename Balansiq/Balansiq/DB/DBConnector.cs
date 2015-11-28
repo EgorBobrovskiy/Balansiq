@@ -7,7 +7,7 @@ using System.Data.SQLite;
 
 namespace Balansiq.DB
 {
-    class DBConnector
+    public class DBConnector
     {
         private static readonly string source = "Data Source={0}; Version={1}; Primary Key={2};";
         private static readonly string DBName = "Data\\userData.sl3";

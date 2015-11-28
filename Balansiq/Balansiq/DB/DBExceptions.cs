@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Balansiq.DB
 {
-    class DBExceptions : Exception
+    public class DBExceptions : Exception
     {
         public String Title { get; set; }
 

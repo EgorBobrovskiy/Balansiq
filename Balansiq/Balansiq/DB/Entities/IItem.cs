@@ -5,12 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Balansiq.DB;
 
-namespace Balansiq.Entities
+namespace Balansiq.DB.Entities
 {
-    abstract class IItem
+    public abstract class IItem
     {
         [Ignore]
         private long? _id = null;
+
+        [Ignore]
+        public bool IsEmpty { get { return this.Id == null; } }
 
         [PrimaryKey, Unique, NotNull]
         public long? Id
@@ -20,7 +23,7 @@ namespace Balansiq.Entities
         }
 
         [Ignore]
-        public static KeyValuePair<Balansiq.DB.DataTable, string>? ForeignKey { get { return null; } }
+        public static KeyValuePair<Balansiq.DB.DataTableType, string>? ForeignKey { get { return null; } }
 
         public IItem(int? id)
         {

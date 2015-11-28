@@ -5,20 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using Balansiq.DB;
 
-namespace Balansiq.Entities
+namespace Balansiq.DB.Entities
 {
-    class Filter : IItem
+    public class Filter : IItem
     {
         [NotNull]
         public String Name { get; set; }
 
-        public Filter() : this("") { }
+        public Filter() : this(string.Empty) { }
         public Filter(String name) : this(null, name) { }
         public Filter(int? id, String name) : base(id)
         {
             Name = name;
         }
-
+        
+        [Ignore]
+        public new bool IsEmpty { get { return Id == null && Name == string.Empty; } }
 
         public override string ToString()
         {

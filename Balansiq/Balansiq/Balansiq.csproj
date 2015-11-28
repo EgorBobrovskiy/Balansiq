@@ -82,17 +82,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Windows\Controls\GridView\DataGridViewFilterCell.cs" />
+    <Compile Include="Windows\Controls\GridView\DataGridViewFilterTypeColumn.cs" />
+    <Compile Include="Windows\Controls\MainControl.cs" />
     <Compile Include="DB\DBAttributes.cs" />
     <Compile Include="DB\DBConnector.cs" />
     <Compile Include="DB\DBExceptions.cs" />
     <Compile Include="DB\DBManager.cs" />
-    <Compile Include="Entities\Filter.cs" />
-    <Compile Include="Entities\IItem.cs" />
-    <Compile Include="Entities\IncomeFilter.cs" />
-    <Compile Include="Entities\IncomeItem.cs" />
-    <Compile Include="Entities\SpendFilter.cs" />
-    <Compile Include="Entities\SpendFilterType.cs" />
-    <Compile Include="Entities\SpendItem.cs" />
+    <Compile Include="DB\Entities\Filter.cs" />
+    <Compile Include="DB\Entities\IItem.cs" />
+    <Compile Include="DB\Entities\IncomeFilter.cs" />
+    <Compile Include="DB\Entities\IncomeItem.cs" />
+    <Compile Include="DB\Entities\SpendFilter.cs" />
+    <Compile Include="DB\Entities\SpendFilterType.cs" />
+    <Compile Include="DB\Entities\SpendItem.cs" />
     <Compile Include="Windows\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,8 +121,6 @@
     <None Include="bin\Release\System.Data.SQLite.dll.config" />
     <None Include="bin\Debug\Data\userData.sl3" />
     <None Include="bin\Debug\System.Data.SQLite.dll.config" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="DB\userData.sl3" />
     <None Include="Lib\System.Data.SQLite.dll.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

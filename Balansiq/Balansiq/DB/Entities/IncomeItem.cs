@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Balansiq.DB;
 
-namespace Balansiq.Entities
+namespace Balansiq.DB.Entities
 {
-    class IncomeItem : IItem
+    public class IncomeItem : IItem
     {
         [NotNull]
         public string Description { get; set; }
@@ -18,11 +18,11 @@ namespace Balansiq.Entities
         [NotNull]
         public DateTime IDate { get; set; }
         [Ignore]
-        public static new KeyValuePair<Balansiq.DB.DataTable, string>? ForeignKey
+        public static new KeyValuePair<Balansiq.DB.DataTableType, string>? ForeignKey
         {
             get
             {
-                return new KeyValuePair<DataTable,string>(DataTable.IncomeFilters, "Id");
+                return new KeyValuePair<DataTableType,string>(DataTableType.IncomeFilters, "Id");
             }
         }
 

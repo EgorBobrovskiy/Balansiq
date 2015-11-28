@@ -15,19 +15,13 @@ D:\Учёба\5 семестр\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debu
 D:\Учёба\5 семестр\ТРиТ ПО\Balansiq\Balansiq\Balansiq\obj\Debug\Balansiq.MainWindow.resources
 D:\Учёба\5 семестр\ТРиТ ПО\Balansiq\Balansiq\Balansiq\obj\Debug\Balansiq.Properties.Resources.resources
 D:\Учёба\5 семестр\ТРиТ ПО\Balansiq\Balansiq\Balansiq\obj\Debug\Balansiq.csproj.GenerateResource.Cache
-D:\Учёба\5 семестр\ТРиТ ПО\Balansiq\Balansiq\Balansiq\obj\Debug\Balansiq.csprojResolveAssemblyReference.cache
 D:\Test projects\Balansiq\Balansiq\bin\Debug\System.Data.SQLite.pdb
 D:\Test projects\Balansiq\Balansiq\bin\Debug\System.Data.SQLite.xml
 D:\Учёба\5 семестр\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\EntityFramework.dll
 D:\Учёба\5 семестр\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\EntityFramework.SqlServer.dll
 D:\Учёба\5 семестр\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\EntityFramework.xml
 D:\Учёба\5 семестр\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\EntityFramework.SqlServer.xml
-D:\Учёба\5 семестр\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\System.Data.SQLite.pdb
 D:\Учёба\5 семестр\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\System.Data.SQLite.xml
-D:\Учёба\5 семестр\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\System.Data.SQLite.EF6.pdb
-D:\Учёба\5 семестр\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\System.Data.SQLite.EF6.xml
-D:\Учёба\5 семестр\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\System.Data.SQLite.Linq.pdb
-D:\Учёба\5 семестр\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\System.Data.SQLite.Linq.xml
 D:\Test projects\Balansiq\Balansiq\bin\Debug\EntityFramework.dll
 D:\Test projects\Balansiq\Balansiq\bin\Debug\EntityFramework.SqlServer.dll
 D:\Test projects\Balansiq\Balansiq\bin\Debug\EntityFramework.xml
@@ -36,3 +30,16 @@ D:\Test projects\Balansiq\Balansiq\bin\Debug\System.Data.SQLite.EF6.pdb
 D:\Test projects\Balansiq\Balansiq\bin\Debug\System.Data.SQLite.EF6.xml
 D:\Test projects\Balansiq\Balansiq\bin\Debug\System.Data.SQLite.Linq.pdb
 D:\Test projects\Balansiq\Balansiq\bin\Debug\System.Data.SQLite.Linq.xml
+E:\Универ Егор\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\Balansiq.exe.config
+E:\Универ Егор\ТРиТ ПО\Balansiq\Balansiq\Balansiq\obj\Debug\Balansiq.exe
+E:\Универ Егор\ТРиТ ПО\Balansiq\Balansiq\Balansiq\obj\Debug\Balansiq.pdb
+E:\Универ Егор\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\Balansiq.exe
+E:\Универ Егор\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\Balansiq.pdb
+E:\Универ Егор\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\EntityFramework.dll
+E:\Универ Егор\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\EntityFramework.SqlServer.dll
+E:\Универ Егор\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\EntityFramework.xml
+E:\Универ Егор\ТРиТ ПО\Balansiq\Balansiq\Balansiq\bin\Debug\EntityFramework.SqlServer.xml
+E:\Универ Егор\ТРиТ ПО\Balansiq\Balansiq\Balansiq\obj\Debug\Balansiq.csprojResolveAssemblyReference.cache
+E:\Универ Егор\ТРиТ ПО\Balansiq\Balansiq\Balansiq\obj\Debug\Balansiq.MainWindow.resources
+E:\Универ Егор\ТРиТ ПО\Balansiq\Balansiq\Balansiq\obj\Debug\Balansiq.Properties.Resources.resources
+E:\Универ Егор\ТРиТ ПО\Balansiq\Balansiq\Balansiq\obj\Debug\Balansiq.csproj.GenerateResource.Cache
