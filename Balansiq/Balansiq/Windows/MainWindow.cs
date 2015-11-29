@@ -22,13 +22,8 @@ namespace Balansiq
             {
                 DBConnector.OpenConnection();
                 DBManager.GetAllItems();
-                MainControl.InitComponents();
-
-                // default values
-                this.datePicker.Value = DateTime.Now;
-                ApplyCellFormats();
-                FillTablesWithValues();
-
+                MainControl.InitComponents(this);
+                
                 // bind events
                 this.FormClosing += OnClosing;
             }
@@ -37,27 +32,6 @@ namespace Balansiq
                 MessageBox.Show(ex.Message + "\n\nБудь у меня искусственный интеллект, я бы уже исправил ошибку :(", "Упс... Возникла проблема!");
                 Load += (s, e) => Close();
             }
-        }
-
-        private void ApplyCellFormats()
-        {
-            this.spendFiltersGrid.RowsDefaultCellStyle = MainControl.CellTemplate;
-            this.spendFiltersGrid.AlternatingRowsDefaultCellStyle = MainControl.CellTemplateAlt;
-
-            this.incomeFiltersGrid.RowsDefaultCellStyle = MainControl.CellTemplate;
-            this.incomeFiltersGrid.AlternatingRowsDefaultCellStyle = MainControl.CellTemplateAlt;
-
-            this.spendGrid.RowsDefaultCellStyle = MainControl.CellTemplate;
-            this.spendGrid.AlternatingRowsDefaultCellStyle = MainControl.CellTemplateAlt;
-
-            this.incomeGrid.RowsDefaultCellStyle = MainControl.CellTemplate;
-            this.incomeGrid.AlternatingRowsDefaultCellStyle = MainControl.CellTemplateAlt;
-        }
-
-        private void FillTablesWithValues()
-        {
-            MainControl.FillSpendFiltersTable(this.spendFiltersGrid);
-            MainControl.FillIncomeFiltersTable(this.incomeFiltersGrid);
         }
 
         private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)

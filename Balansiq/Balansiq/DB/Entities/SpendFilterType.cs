@@ -11,5 +11,9 @@ namespace Balansiq.DB.Entities
         public SpendFilterType() : base() { }
         public SpendFilterType(string name) : this(null, name) { }
         public SpendFilterType(int? id, String name) : base(id, name) { }
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

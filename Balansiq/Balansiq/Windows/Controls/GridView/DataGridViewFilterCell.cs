@@ -52,6 +52,16 @@ namespace Balansiq.Windows.Controls.GridView
                     if (res == DialogResult.OK)
                     {
                         DB.DBManager.DeleteItem(this._item);
+                        if (this._itemType == typeof(SpendFilter))
+                        {
+                            SpendFilter item = (SpendFilter)this._item;
+                            DB.DBManager.SpendFilters.Where(kvp => kvp.Key.Id == item.Type).First().Value.Remove(item);
+                        }
+                        else 
+                        {
+                            IncomeFilter item = (IncomeFilter)this._item;
+                            DB.DBManager.IncomeFilters.Remove(item);
+                        }
                         this._item = null;
                     }
                     ret = true;
@@ -61,12 +71,16 @@ namespace Balansiq.Windows.Controls.GridView
                     // create new item
                     if (_itemType == typeof(IncomeFilter))
                     {
-                        this._item = new IncomeFilter(str);
+                        IncomeFilter item = new IncomeFilter(str);
+                        this._item = item;
+                        DB.DBManager.IncomeFilters.Add(item);
                     }
                     else if (_itemType == typeof(SpendFilter))
                     {
                         var col = this.OwningColumn as DataGridViewFilterTypeColumn;
-                        this._item = new SpendFilter(str, col != null ? col.FilterType.Id : null);
+                        var item = new SpendFilter(str, col != null ? col.FilterType.Id : null);
+                        this._item = item;
+                        DB.DBManager.SpendFilters[col.FilterType].Add(item);
                     }
                     DB.DBManager.CreateOrUpdateItem(this._item);
                     ret = true;

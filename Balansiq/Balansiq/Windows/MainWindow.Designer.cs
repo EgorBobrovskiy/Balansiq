@@ -35,15 +35,9 @@
             System.Windows.Forms.GroupBox groupBox2;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.TabControl tabControl1;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -76,6 +70,7 @@
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint21 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint22 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint23 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.Label label1;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -84,20 +79,19 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             this.spendFiltersGrid = new System.Windows.Forms.DataGridView();
             this.filtersGridContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addColumnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.incomeFiltersGrid = new System.Windows.Forms.DataGridView();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.spendTab = new System.Windows.Forms.TabPage();
             this.spendGrid = new System.Windows.Forms.DataGridView();
-            this.spendDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.spendType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.spendName = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.spendDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.spendPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.spendCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.spendTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.incomeTab = new System.Windows.Forms.TabPage();
             this.incomeGrid = new System.Windows.Forms.DataGridView();
             this.incomeDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -109,7 +103,6 @@
             this.filtersTab = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.moneyLeftLabel = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.searchBox = new System.Windows.Forms.TextBox();
             this.datePicker = new System.Windows.Forms.DateTimePicker();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -120,9 +113,18 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.spendDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.spendType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.spendName = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.spendDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.spendPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.spendCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.spendTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             splitContainer1 = new System.Windows.Forms.SplitContainer();
             groupBox1 = new System.Windows.Forms.GroupBox();
             groupBox2 = new System.Windows.Forms.GroupBox();
+            tabControl1 = new System.Windows.Forms.TabControl();
+            label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(splitContainer1)).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -132,7 +134,7 @@
             this.filtersGridContext.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.incomeFiltersGrid)).BeginInit();
-            this.tabControl1.SuspendLayout();
+            tabControl1.SuspendLayout();
             this.spendTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spendGrid)).BeginInit();
             this.incomeTab.SuspendLayout();
@@ -258,19 +260,19 @@
             // 
             // tabControl1
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.tabControl1, 7);
-            this.tabControl1.Controls.Add(this.spendTab);
-            this.tabControl1.Controls.Add(this.incomeTab);
-            this.tabControl1.Controls.Add(this.analysisTab);
-            this.tabControl1.Controls.Add(this.filtersTab);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tabControl1.Location = new System.Drawing.Point(3, 35);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(618, 404);
-            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tabControl1.TabIndex = 0;
+            this.tableLayoutPanel1.SetColumnSpan(tabControl1, 7);
+            tabControl1.Controls.Add(this.spendTab);
+            tabControl1.Controls.Add(this.incomeTab);
+            tabControl1.Controls.Add(this.analysisTab);
+            tabControl1.Controls.Add(this.filtersTab);
+            tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            tabControl1.Location = new System.Drawing.Point(3, 35);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new System.Drawing.Size(618, 404);
+            tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            tabControl1.TabIndex = 0;
             // 
             // spendTab
             // 
@@ -315,100 +317,9 @@
             this.spendGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.spendGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.spendGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.spendGrid.ShowCellErrors = false;
             this.spendGrid.Size = new System.Drawing.Size(604, 369);
             this.spendGrid.TabIndex = 0;
-            // 
-            // spendDate
-            // 
-            this.spendDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.Format = "M";
-            dataGridViewCellStyle5.NullValue = " ";
-            this.spendDate.DefaultCellStyle = dataGridViewCellStyle5;
-            this.spendDate.HeaderText = "Дата";
-            this.spendDate.MaxInputLength = 50;
-            this.spendDate.Name = "spendDate";
-            this.spendDate.ReadOnly = true;
-            this.spendDate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.spendDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.spendDate.ToolTipText = "Дата события";
-            this.spendDate.Width = 48;
-            // 
-            // spendType
-            // 
-            this.spendType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.NullValue = " ";
-            this.spendType.DefaultCellStyle = dataGridViewCellStyle6;
-            this.spendType.HeaderText = "Вид расхода";
-            this.spendType.Name = "spendType";
-            this.spendType.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.spendType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.spendType.ToolTipText = "Вид расхода. Задаётся в фильтрах";
-            this.spendType.Width = 115;
-            // 
-            // spendName
-            // 
-            this.spendName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.NullValue = " ";
-            this.spendName.DefaultCellStyle = dataGridViewCellStyle7;
-            this.spendName.HeaderText = "Название";
-            this.spendName.Name = "spendName";
-            this.spendName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.spendName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.spendName.ToolTipText = "Название расхода. Задаётся в фильтрах";
-            this.spendName.Width = 97;
-            // 
-            // spendDescription
-            // 
-            this.spendDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.NullValue = " ";
-            this.spendDescription.DefaultCellStyle = dataGridViewCellStyle8;
-            this.spendDescription.HeaderText = "Описание";
-            this.spendDescription.Name = "spendDescription";
-            this.spendDescription.ToolTipText = "Дополнительное описание расхода";
-            // 
-            // spendPrice
-            // 
-            this.spendPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.Format = "C1";
-            dataGridViewCellStyle9.NullValue = "0.0";
-            this.spendPrice.DefaultCellStyle = dataGridViewCellStyle9;
-            this.spendPrice.HeaderText = "Цена/ед.";
-            this.spendPrice.MaxInputLength = 127;
-            this.spendPrice.Name = "spendPrice";
-            this.spendPrice.ToolTipText = "Цена за единицу. Если не задана, будет определена делением Всего на Цена/ед.";
-            this.spendPrice.Width = 92;
-            // 
-            // spendCount
-            // 
-            this.spendCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.Format = "N3";
-            dataGridViewCellStyle10.NullValue = "0.000";
-            this.spendCount.DefaultCellStyle = dataGridViewCellStyle10;
-            this.spendCount.HeaderText = "Кол-во";
-            this.spendCount.Name = "spendCount";
-            this.spendCount.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.spendCount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.spendCount.ToolTipText = "Количество (ед.)";
-            this.spendCount.Width = 59;
-            // 
-            // spendTotal
-            // 
-            this.spendTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.Format = "C1";
-            dataGridViewCellStyle11.NullValue = "0.0";
-            this.spendTotal.DefaultCellStyle = dataGridViewCellStyle11;
-            this.spendTotal.HeaderText = "Всего";
-            this.spendTotal.Name = "spendTotal";
-            this.spendTotal.ToolTipText = "Итоговая стоимость. Если заданы цена за единицу и количество, определяется автома" +
-    "тически";
-            this.spendTotal.Width = 70;
             // 
             // incomeTab
             // 
@@ -579,8 +490,8 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 229F));
             this.tableLayoutPanel1.Controls.Add(this.moneyLeftLabel, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.tabControl1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(tabControl1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.searchBox, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.datePicker, 3, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -604,20 +515,19 @@
             this.moneyLeftLabel.Size = new System.Drawing.Size(96, 19);
             this.moneyLeftLabel.TabIndex = 1;
             this.moneyLeftLabel.TabStop = false;
-            this.moneyLeftLabel.Text = "3,234.0р.";
             // 
             // label1
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(5, 7);
-            this.label1.Margin = new System.Windows.Forms.Padding(5);
-            this.label1.MinimumSize = new System.Drawing.Size(80, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Осталось:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            label1.Location = new System.Drawing.Point(5, 7);
+            label1.Margin = new System.Windows.Forms.Padding(5);
+            label1.MinimumSize = new System.Drawing.Size(80, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(80, 20);
+            label1.TabIndex = 0;
+            label1.Text = "Осталось:";
+            label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // searchBox
             // 
@@ -750,6 +660,101 @@
             this.dataGridViewTextBoxColumn9.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewTextBoxColumn9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // spendDate
+            // 
+            this.spendDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.Format = "M";
+            dataGridViewCellStyle5.NullValue = " ";
+            this.spendDate.DefaultCellStyle = dataGridViewCellStyle5;
+            this.spendDate.HeaderText = "Дата";
+            this.spendDate.MaxInputLength = 50;
+            this.spendDate.Name = "spendDate";
+            this.spendDate.ReadOnly = true;
+            this.spendDate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.spendDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.spendDate.ToolTipText = "Дата события";
+            this.spendDate.Width = 48;
+            // 
+            // spendType
+            // 
+            this.spendType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.NullValue = " ";
+            this.spendType.DefaultCellStyle = dataGridViewCellStyle6;
+            this.spendType.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.spendType.HeaderText = "Вид расхода";
+            this.spendType.Name = "spendType";
+            this.spendType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.spendType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.spendType.ToolTipText = "Вид расхода. Задаётся в фильтрах";
+            this.spendType.Width = 115;
+            // 
+            // spendName
+            // 
+            this.spendName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.NullValue = " ";
+            this.spendName.DefaultCellStyle = dataGridViewCellStyle7;
+            this.spendName.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.spendName.HeaderText = "Название";
+            this.spendName.Name = "spendName";
+            this.spendName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.spendName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.spendName.ToolTipText = "Название расхода. Задаётся в фильтрах";
+            this.spendName.Width = 97;
+            // 
+            // spendDescription
+            // 
+            this.spendDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.NullValue = " ";
+            this.spendDescription.DefaultCellStyle = dataGridViewCellStyle8;
+            this.spendDescription.HeaderText = "Описание";
+            this.spendDescription.MinimumWidth = 50;
+            this.spendDescription.Name = "spendDescription";
+            this.spendDescription.ToolTipText = "Дополнительное описание расхода";
+            // 
+            // spendPrice
+            // 
+            this.spendPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.Format = "C2";
+            dataGridViewCellStyle9.NullValue = "0.00";
+            this.spendPrice.DefaultCellStyle = dataGridViewCellStyle9;
+            this.spendPrice.HeaderText = "Цена/ед.";
+            this.spendPrice.MaxInputLength = 127;
+            this.spendPrice.Name = "spendPrice";
+            this.spendPrice.ToolTipText = "Цена за единицу";
+            this.spendPrice.Width = 92;
+            // 
+            // spendCount
+            // 
+            this.spendCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.Format = "N3";
+            dataGridViewCellStyle10.NullValue = "0.000";
+            this.spendCount.DefaultCellStyle = dataGridViewCellStyle10;
+            this.spendCount.HeaderText = "Кол-во";
+            this.spendCount.Name = "spendCount";
+            this.spendCount.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.spendCount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.spendCount.ToolTipText = "Количество (ед.)";
+            this.spendCount.Width = 59;
+            // 
+            // spendTotal
+            // 
+            this.spendTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.Format = "C2";
+            dataGridViewCellStyle11.NullValue = "0.00";
+            this.spendTotal.DefaultCellStyle = dataGridViewCellStyle11;
+            this.spendTotal.HeaderText = "Всего";
+            this.spendTotal.MaxInputLength = 127;
+            this.spendTotal.Name = "spendTotal";
+            this.spendTotal.ToolTipText = "Итоговая стоимость. Вычисляется автоматически";
+            this.spendTotal.Width = 70;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -768,7 +773,7 @@
             this.filtersGridContext.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.incomeFiltersGrid)).EndInit();
-            this.tabControl1.ResumeLayout(false);
+            tabControl1.ResumeLayout(false);
             this.spendTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spendGrid)).EndInit();
             this.incomeTab.ResumeLayout(false);
@@ -784,34 +789,19 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage spendTab;
         private System.Windows.Forms.TabPage incomeTab;
         private System.Windows.Forms.TabPage analysisTab;
         private System.Windows.Forms.TabPage filtersTab;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.DateTimePicker datePicker;
         private System.Windows.Forms.TextBox searchBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox moneyLeftLabel;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.DataGridView spendGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn spendDate;
-        private System.Windows.Forms.DataGridViewComboBoxColumn spendType;
-        private System.Windows.Forms.DataGridViewComboBoxColumn spendName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn spendDescription;
-        private System.Windows.Forms.DataGridViewTextBoxColumn spendPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn spendCount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn spendTotal;
-        private System.Windows.Forms.DataGridView incomeGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn incomeDate;
         private System.Windows.Forms.DataGridViewComboBoxColumn incomeType;
         private System.Windows.Forms.DataGridViewTextBoxColumn incomeTotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn incomeDescription;
-        private System.Windows.Forms.DataGridView spendFiltersGrid;
         private System.Windows.Forms.ContextMenuStrip filtersGridContext;
         private System.Windows.Forms.ToolStripMenuItem addColumnToolStripMenuItem;
-        private System.Windows.Forms.DataGridView incomeFiltersGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
@@ -820,6 +810,19 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        public System.Windows.Forms.DateTimePicker datePicker;
+        public System.Windows.Forms.TextBox moneyLeftLabel;
+        public System.Windows.Forms.DataGridView spendGrid;
+        public System.Windows.Forms.DataGridView incomeGrid;
+        public System.Windows.Forms.DataGridView spendFiltersGrid;
+        public System.Windows.Forms.DataGridView incomeFiltersGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn spendDate;
+        private System.Windows.Forms.DataGridViewComboBoxColumn spendType;
+        private System.Windows.Forms.DataGridViewComboBoxColumn spendName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn spendDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn spendPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn spendCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn spendTotal;
     }
 }
 

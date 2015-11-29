@@ -173,8 +173,10 @@ namespace Balansiq.DB
                     {
                         DateTime? date = iv.Value as DateTime?;
                         string valstr = (date == null)
-                            ? iv.Value.ToString()
-                            : date.Value.ToString("yy-MM-dd");
+                            ? iv.Value != null 
+                                ? iv.Value.ToString() 
+                                : string.Empty
+                            : date.Value.ToString("yyyy-MM-dd");
                         columns.Append(iv.Key + ',');
                         values.Append(String.Format("'{0}',", valstr));
                     }
@@ -204,7 +206,7 @@ namespace Balansiq.DB
                         DateTime? date = iv.Value as DateTime?;
                         string valstr = (date == null)
                             ? iv.Value.ToString()
-                            : date.Value.ToString("yy-MM-dd");
+                            : date.Value.ToString("yyyy-MM-dd");
                         values.Append(String.Format("{0}='{1}',", iv.Key, valstr));
                     }
                     values.Remove(values.Length - 1, 1);
@@ -237,6 +239,10 @@ namespace Balansiq.DB
             {
                 SpendFilterType other = new SpendFilterType(-1, "Другое");
                 SpendFilters.Add(other, spendFilters);
+                foreach(var sf in spendFilters)
+                {
+                    sf.Type = -1;
+                }
             }
 
             // fill income items
@@ -247,7 +253,7 @@ namespace Balansiq.DB
                 var key = IncomeData.Keys.FirstOrDefault(k => k.Date == ii.IDate.Date);
                 if (key == null)
                 {
-                    key = ii.IDate;
+                    key = ii.IDate.Date;
                     IncomeData.Add(key, new List<IncomeItem>());
                 }
                 IncomeData[key].Add(ii);
@@ -259,9 +265,9 @@ namespace Balansiq.DB
             foreach (var si in spendItems)
             {
                 var key = SpendData.Keys.FirstOrDefault(k => k.Date == si.SDate.Date);
-                if (key == null)
+                if (key == DateTime.MinValue)
                 {
-                    key = si.SDate;
+                    key = si.SDate.Date;
                     SpendData.Add(key, new List<SpendItem>());
                 }
                 SpendData[key].Add(si);
@@ -285,6 +291,10 @@ namespace Balansiq.DB
                 {
                     object value = reader[p.Name];
                     if (value == System.DBNull.Value) value = null;
+                    if (p.Name == "SDate" || p.Name == "IDate")
+                    {
+                        value = DateTime.Parse((string)value);
+                    }
                     p.SetValue(item, value);
                 }
                 ret.Add(item);
@@ -301,6 +311,19 @@ namespace Balansiq.DB
                 string sql = String.Format(Q_DELETE_FORMAT, table, "Id=" + item.Id.ToString());
                 ExecuteNonQuery(sql);
             }
+        }
+
+        public static SpendFilter GetSpendFilter(long id)
+        {
+            foreach (var filters in SpendFilters.Values)
+            {
+                var sf = filters.Find(f => f.Id.HasValue && f.Id.Value == id);
+                if (sf != null)
+                {
+                    return sf;
+                }
+            }
+            return null;
         }
     }
 }

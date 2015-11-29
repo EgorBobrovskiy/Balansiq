@@ -25,7 +25,7 @@ namespace Balansiq.DB
             {typeof(int), "INTEGER"},
             {typeof(double), "REAL"},
             {typeof(string), "TEXT"},
-            {typeof(DateTime), "INTEGER"}
+            {typeof(DateTime), "STRING"}
         };
     }
 

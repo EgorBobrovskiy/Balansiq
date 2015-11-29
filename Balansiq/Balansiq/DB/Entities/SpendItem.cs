@@ -16,11 +16,19 @@ namespace Balansiq.DB.Entities
         [NotNull]
         public double Price { get; set; }
         [ForeignKey]
-        public int? SFilter { get; set; }
+        public long? SFilter { get; set; }
         [NotNull]
         public DateTime SDate { get; set; }
         [Ignore]
-        public static new KeyValuePair<Balansiq.DB.DataTableType, string>? ForeignKey
+        new public bool IsEmpty
+        {
+            get
+            {
+                return Id == null && Description == string.Empty && Amount == .0 && Price == .0 && SFilter == null;
+            }
+        }
+        [Ignore]
+        public static new KeyValuePair<DataTableType, string>? ForeignKey
         {
             get
             {
@@ -28,7 +36,8 @@ namespace Balansiq.DB.Entities
             }
         }
 
-        public SpendItem() : this(null, DateTime.MinValue, null, 0.0, 0.0, "") { }
+        public SpendItem() : this(DateTime.MinValue) { }
+        public SpendItem(DateTime date) : this(null, date, null, 0.0, 0.0, string.Empty) { }
         public SpendItem(int? id, DateTime date, int? filter, double price, double amount, String description) : base(id)
         {
             SDate = date;
