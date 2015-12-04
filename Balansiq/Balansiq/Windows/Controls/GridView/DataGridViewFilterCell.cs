@@ -12,6 +12,7 @@ namespace Balansiq.Windows.Controls.GridView
     {
         private Filter _item = null;
         private Type _itemType = null;
+        public event DataGridViewCellEventHandler ItemRemoved;
         public Filter Item
         {
             get { return _item; }
@@ -44,25 +45,30 @@ namespace Balansiq.Windows.Controls.GridView
             {
                 if (string.IsNullOrWhiteSpace(str))
                 {
-                    // delete item
-                    string message = "Вы действительно хотите удалить фильтр?\n" +
-                        "Все связанные с ним данные будут недоступны при анализе.\n\n" +
-                        "Продожить?";
-                    DialogResult res = MessageBox.Show(message, "Удаление фильтра", MessageBoxButtons.OKCancel);
-                    if (res == DialogResult.OK)
+                    if (this._item != null)
                     {
-                        DB.DBManager.DeleteItem(this._item);
-                        if (this._itemType == typeof(SpendFilter))
+                        // delete item
+                        string message = "Вы действительно хотите удалить фильтр?\n" +
+                            "Все связанные с ним данные будут недоступны при анализе.\n\n" +
+                            "Продожить?";
+                        DialogResult res = MessageBox.Show(message, "Удаление фильтра", MessageBoxButtons.OKCancel);
+                        if (res == DialogResult.OK)
                         {
-                            SpendFilter item = (SpendFilter)this._item;
-                            DB.DBManager.SpendFilters.Where(kvp => kvp.Key.Id == item.Type).First().Value.Remove(item);
+                            DB.DBManager.DeleteItem(this._item);
+                            if (this._itemType == typeof(SpendFilter))
+                            {
+                                SpendFilter item = (SpendFilter)this._item;
+                                DB.DBManager.SpendFilters.Where(kvp => kvp.Key.Id == item.Type).First().Value.Remove(item);
+                            }
+                            else
+                            {
+                                IncomeFilter item = (IncomeFilter)this._item;
+                                DB.DBManager.IncomeFilters.Remove(item);
+                            }
+                            this._item = null;
+                            if (this.ItemRemoved != null)
+                                this.ItemRemoved(this, new DataGridViewCellEventArgs(this.ColumnIndex, this.RowIndex));
                         }
-                        else 
-                        {
-                            IncomeFilter item = (IncomeFilter)this._item;
-                            DB.DBManager.IncomeFilters.Remove(item);
-                        }
-                        this._item = null;
                     }
                     ret = true;
                 }

@@ -25,7 +25,7 @@ namespace Balansiq.DB.Entities
         [Ignore]
         public static KeyValuePair<Balansiq.DB.DataTableType, string>? ForeignKey { get { return null; } }
 
-        public IItem(int? id)
+        public IItem(long? id)
         {
             Id = id;
         }

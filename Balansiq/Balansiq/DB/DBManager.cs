@@ -35,7 +35,6 @@ namespace Balansiq.DB
         private static readonly string Q_INSERT_FORMAT = "INSERT INTO {0} ({1}) VALUES ({2});";
         private static readonly string Q_UPDATE_FORMAT = "UPDATE {0} SET {1} WHERE {2};";
         private static readonly string Q_DELETE_FORMAT = "DELETE FROM {0} WHERE {1};";
-        private static readonly string Q_SELECT_FORMAT = "SELECT {0} FROM {1} WHERE {2};";
         private static readonly string Q_SELECT_ALL_FORMAT = "SELECT * FROM {0};";
 
         private static string ForeignKey = string.Empty;
@@ -205,9 +204,11 @@ namespace Balansiq.DB
                     {
                         DateTime? date = iv.Value as DateTime?;
                         string valstr = (date == null)
-                            ? iv.Value.ToString()
-                            : date.Value.ToString("yyyy-MM-dd");
-                        values.Append(String.Format("{0}='{1}',", iv.Key, valstr));
+                            ? (iv.Value != null) 
+                                ? string.Format("'{0}'", iv.Value.ToString()) 
+                                : "NULL"
+                            : string.Format("'{0}'", date.Value.ToString("yyyy-MM-dd"));
+                        values.Append(String.Format("{0}={1},", iv.Key, valstr));
                     }
                     values.Remove(values.Length - 1, 1);
 
@@ -251,7 +252,7 @@ namespace Balansiq.DB
             foreach (var ii in incomeItems)
             {
                 var key = IncomeData.Keys.FirstOrDefault(k => k.Date == ii.IDate.Date);
-                if (key == null)
+                if (key == DateTime.MinValue)
                 {
                     key = ii.IDate.Date;
                     IncomeData.Add(key, new List<IncomeItem>());

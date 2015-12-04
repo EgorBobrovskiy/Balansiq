@@ -11,7 +11,7 @@ namespace Balansiq.Windows.Controls.GridView
     public class DataGridViewSpendRow : DataGridViewRow
     {
         private SpendItem _item = null;
-        private DateTimePicker _datePicker = null;
+        private DateTime _date = DateTime.MinValue;
         public SpendItem Item
         {
             get { return _item; }
@@ -21,16 +21,16 @@ namespace Balansiq.Windows.Controls.GridView
                 FillCellsWithValues();
             }
         }
-        public DateTimePicker DatePicker 
+        public DateTime Date 
         {
-            get { return this._datePicker; }
+            get { return this._date; }
             set
             {
                 if (this._item != null)
                 {
-                    this._item.SDate = value.Value.Date;
+                    this._item.SDate = value.Date;
                 }
-                this._datePicker = value;
+                this._date = value;
             }
         }
         public bool RowIsEditing { get; protected set; }
@@ -40,8 +40,8 @@ namespace Balansiq.Windows.Controls.GridView
             : base()
         {
             SpendItem item = new SpendItem();
-            if (this.DatePicker != null)
-                item.SDate = this.DatePicker.Value.Date;
+            if (this.Date != DateTime.MinValue)
+                item.SDate = this.Date.Date;
             this._item = item;
             RowIsEditing = false;
         }
@@ -58,6 +58,7 @@ namespace Balansiq.Windows.Controls.GridView
                 var filterTypeCell = this.Cells[1] as DataGridViewComboBoxCell;
                 if (filterTypeCell != null)
                 {
+                    filterTypeCell.Items.Clear();
                     filterTypeCell.Items.AddRange(DB.DBManager.SpendFilters.Keys.ToArray());
                     filterTypeCell.ValueMember = "Id";
                     filterTypeCell.DisplayMember = "Name";
@@ -103,7 +104,7 @@ namespace Balansiq.Windows.Controls.GridView
         {
             if (this._item == null)
             {
-                this.Item = new SpendItem(this.DatePicker != null ? this.DatePicker.Value.Date : DateTime.MinValue);
+                this.Item = new SpendItem(this.Date.Date);
             }
             switch (columnIndex)
             {
@@ -111,11 +112,10 @@ namespace Balansiq.Windows.Controls.GridView
                     UpdateFilterCell();
                     break;
                 case 2:
-                    if (this.Cells[2].Value is long)
-                        this._item.SFilter = (long)this.Cells[2].Value;
+                    this._item.SFilter = this.Cells[2].Value as long?;
                     break;
                 case 3:
-                    if (this.Cells[3].Value != null)
+                    if (this.Cells[3].Value is string)
                         this.Item.Description = (string)this.Cells[3].Value;
                     break;
                 case 4:
@@ -128,7 +128,7 @@ namespace Balansiq.Windows.Controls.GridView
                     UpdateTotalCell();
                     break;
             }
-            if (this.Item != null && !this.Item.IsEmpty)
+            if (!this.Item.IsEmpty)
             {
                 if (this.Item.Id == null)
                 {

@@ -16,19 +16,33 @@ namespace Balansiq.Windows.Controls
     {
         public static DataGridViewCellStyle CellTemplate { get; protected set; }
         public static DataGridViewCellStyle CellTemplateAlt { get; protected set; }
-        private static MainWindow MainWindow;
+        private static MainWindow Window;
+        private static bool UpdatingSFG = false;
 
         public static void InitComponents(MainWindow mainWindow)
         {
-            MainWindow = mainWindow;
+            Window = mainWindow;
             InitCellTemplates();
             ApplyCellTemplates();
-            MainWindow.datePicker.Value = DateTime.Now.Date;
             FillSpendFiltersTable();
             FillIncomeFiltersTable();
             FillSpendItemsTable();
+            FillIncomeItemsTable();
+            Window.datePicker.Value = DateTime.Now.Date;
 
             CalculateMoneyLeft(null, null);
+            Window.tabControl.Selecting += (o, e) =>
+            {
+                switch (e.TabPageIndex)
+                {
+                    case 0: 
+                        UpdateSpendItemsTable(Window.spendGrid, Window.datePicker.Value.Date);
+                        break;
+                    case 1: 
+                        UpdateIncomeItemsTable(Window.incomeGrid, Window.datePicker.Value.Date);
+                        break;
+                }
+            };
         }
 
         private static void InitCellTemplates()
@@ -48,17 +62,17 @@ namespace Balansiq.Windows.Controls
 
         private static void ApplyCellTemplates()
         {
-            MainWindow.spendFiltersGrid.RowsDefaultCellStyle = MainControl.CellTemplate;
-            MainWindow.spendFiltersGrid.AlternatingRowsDefaultCellStyle = MainControl.CellTemplateAlt;
+            Window.spendFiltersGrid.RowsDefaultCellStyle = MainControl.CellTemplate;
+            Window.spendFiltersGrid.AlternatingRowsDefaultCellStyle = MainControl.CellTemplateAlt;
 
-            MainWindow.incomeFiltersGrid.RowsDefaultCellStyle = MainControl.CellTemplate;
-            MainWindow.incomeFiltersGrid.AlternatingRowsDefaultCellStyle = MainControl.CellTemplateAlt;
+            Window.incomeFiltersGrid.RowsDefaultCellStyle = MainControl.CellTemplate;
+            Window.incomeFiltersGrid.AlternatingRowsDefaultCellStyle = MainControl.CellTemplateAlt;
 
-            MainWindow.spendGrid.RowsDefaultCellStyle = MainControl.CellTemplate;
-            MainWindow.spendGrid.AlternatingRowsDefaultCellStyle = MainControl.CellTemplateAlt;
+            Window.spendGrid.RowsDefaultCellStyle = MainControl.CellTemplate;
+            Window.spendGrid.AlternatingRowsDefaultCellStyle = MainControl.CellTemplateAlt;
 
-            MainWindow.incomeGrid.RowsDefaultCellStyle = MainControl.CellTemplate;
-            MainWindow.incomeGrid.AlternatingRowsDefaultCellStyle = MainControl.CellTemplateAlt;
+            Window.incomeGrid.RowsDefaultCellStyle = MainControl.CellTemplate;
+            Window.incomeGrid.AlternatingRowsDefaultCellStyle = MainControl.CellTemplateAlt;
         }
 
         public static DataGridViewFilterTypeColumn GetFilterTypeColumn(SpendFilterType spendFilterType)
@@ -81,10 +95,26 @@ namespace Balansiq.Windows.Controls
             return column;
         }
 
-        public static void FillSpendFiltersTable()
+        private static void FillSpendFiltersTable()
         {
-            DataGridView SFG = MainWindow.spendFiltersGrid;
-            SFG.ColumnAdded += (o, e) => e.Column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridView SFG = Window.spendFiltersGrid;
+            SFG.ColumnAdded += (o, e) =>
+            {
+                e.Column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                DataGridView table = o as DataGridView;
+                if (table != null)
+                {
+                    foreach (DataGridViewRow row in table.Rows)
+                    {
+                        var cell = row.Cells[e.Column.Name] as DataGridViewFilterCell;
+                        if (cell != null)
+                        {
+                            cell.ItemType = typeof(SpendFilter);
+                            cell.ItemRemoved += (obj, args) => { UpdateSpendFiltersTable(SFG); };
+                        }
+                    }
+                }
+            };
             SFG.RowsAdded += (o, e) =>
             {
                 for (int i = e.RowIndex; i < e.RowIndex + e.RowCount; i++)
@@ -92,14 +122,17 @@ namespace Balansiq.Windows.Controls
                     foreach (DataGridViewFilterCell cell in SFG.Rows[i].Cells)
                     {
                         cell.ItemType = typeof(SpendFilter);
+                        cell.ItemRemoved += (obj, args) => { UpdateSpendFiltersTable(SFG); };
                     }
                 }
             };
+            SFG.ColumnRemoved += (o, e) => { if (!UpdatingSFG) UpdateSpendFiltersTable(SFG); };
             UpdateSpendFiltersTable(SFG);
         }
 
-        public static void UpdateSpendFiltersTable(DataGridView SFG)
+        private static void UpdateSpendFiltersTable(DataGridView SFG)
         {
+            UpdatingSFG = true;
             SFG.Rows.Clear();
             SFG.Columns.Clear();
             foreach (var filter in DBManager.SpendFilters)
@@ -119,11 +152,12 @@ namespace Balansiq.Windows.Controls
                     cell.Value = filter.Value[iRow];
                 }
             }
+            UpdatingSFG = false;
         }
 
-        public static void FillIncomeFiltersTable()
+        private static void FillIncomeFiltersTable()
         {
-            DataGridView IFG = MainWindow.incomeFiltersGrid;
+            DataGridView IFG = Window.incomeFiltersGrid;
             IFG.RowsAdded += (o, e) =>
             {
                 for (int i = e.RowIndex; i < e.RowIndex + e.RowCount; i++)
@@ -137,7 +171,7 @@ namespace Balansiq.Windows.Controls
             UpdateIncomeFiltersTable(IFG);
         }
 
-        public static void UpdateIncomeFiltersTable(DataGridView IFG)
+        private static void UpdateIncomeFiltersTable(DataGridView IFG)
         {
             IFG.Columns.Clear();
             IFG.Rows.Clear();
@@ -160,14 +194,18 @@ namespace Balansiq.Windows.Controls
             }
         }
 
-        public static void FillSpendItemsTable()
+        private static void FillSpendItemsTable()
         {
-            DataGridView SIT = MainWindow.spendGrid;
-            DateTimePicker dateTimePicker = MainWindow.datePicker;
+            DataGridView SIT = Window.spendGrid;
+            DateTimePicker dateTimePicker = Window.datePicker;
+
+            var rowTemplate = new DataGridViewSpendRow();
+            SIT.RowTemplate = rowTemplate;
+            UpdateSpendItemsTable(SIT, dateTimePicker.Value.Date);
 
             dateTimePicker.ValueChanged += (o, e) => 
             {
-                UpdateSpendItemsTable(SIT, dateTimePicker.Value);
+                UpdateSpendItemsTable(SIT, dateTimePicker.Value.Date);
             };
             SIT.RowsAdded += (o, e) =>
             {
@@ -176,17 +214,12 @@ namespace Balansiq.Windows.Controls
                     var row = SIT.Rows[i] as DataGridViewSpendRow;
                     if (row != null)
                     {
-                        row.DatePicker = dateTimePicker;
+                        row.Date = dateTimePicker.Value.Date;
                         row.FillCellsWithValues();
                         row.TotalSpendChanged += CalculateMoneyLeft;
                     }
                 }
             };
-
-            var rowTemplate = new DataGridViewSpendRow();
-            SIT.RowTemplate = rowTemplate;
-            UpdateSpendItemsTable(SIT, dateTimePicker.Value);
-
             SIT.CellValueChanged += (o, e) =>
             {
                 var table = o as DataGridView;
@@ -200,14 +233,14 @@ namespace Balansiq.Windows.Controls
             SIT.UserDeletingRow += (o, e) =>
             {
                 var row = e.Row as DataGridViewSpendRow;
-                if (row != null && DB.DBManager.SpendData[row.Item.SDate.Date].Remove(row.Item))
+                if (row != null && DB.DBManager.IncomeData.ContainsKey(row.Date.Date) && DB.DBManager.SpendData[row.Date.Date].Remove(row.Item))
                 {
                     DB.DBManager.DeleteItem(row.Item);
                 }
             };
         }
 
-        public static void UpdateSpendItemsTable(DataGridView SIT, DateTime date)
+        private static void UpdateSpendItemsTable(DataGridView SIT, DateTime date)
         {
             SIT.Rows.Clear();
             List<SpendItem> spendItems;
@@ -226,11 +259,75 @@ namespace Balansiq.Windows.Controls
             }
         }
 
+        private static void FillIncomeItemsTable()
+        {
+            DataGridView IIT = Window.incomeGrid;
+            DateTimePicker datePicker = Window.datePicker;
+
+            var rowTemplate = new DataGridViewIncomeRow();
+            IIT.RowTemplate = rowTemplate;
+            UpdateIncomeItemsTable(IIT, datePicker.Value.Date);
+
+            datePicker.ValueChanged += (o, e) =>
+            {
+                UpdateIncomeItemsTable(IIT, datePicker.Value.Date);
+            };
+            IIT.RowsAdded += (o, e) =>
+            {
+                for (int i = e.RowIndex; i < e.RowIndex + e.RowCount; i++)
+                {
+                    var row = IIT.Rows[i] as DataGridViewIncomeRow;
+                    if (row != null)
+                    {
+                        row.Date = datePicker.Value.Date;
+                        row.FillCellsWithValues();
+                        row.IncomeSummaryChanged += CalculateMoneyLeft;
+                    }
+                }
+            };
+            IIT.CellValueChanged += (o, e) =>
+            {
+                var table = o as DataGridView;
+                if (table != null)
+                {
+                    var row = table.Rows[e.RowIndex] as DataGridViewIncomeRow;
+                    if (row != null && !row.RowIsEditing)
+                        row.UpdateCell(e.ColumnIndex);
+                }
+            };
+            IIT.UserDeletingRow += (o, e) =>
+            {
+                var row = e.Row as DataGridViewIncomeRow;
+                if (row != null && DB.DBManager.IncomeData.ContainsKey(row.Date.Date) && DB.DBManager.IncomeData[row.Date.Date].Remove(row.Item))
+                {
+                    DB.DBManager.DeleteItem(row.Item);
+                }
+            };
+        }
+
+        private static void UpdateIncomeItemsTable(DataGridView IIT, DateTime date)
+        {
+            IIT.Rows.Clear();
+            if (!DB.DBManager.IncomeData.ContainsKey(date.Date))
+            {
+                DB.DBManager.IncomeData.Add(date.Date, new List<IncomeItem>());
+            }
+            List<IncomeItem> incomeItems = DB.DBManager.IncomeData[date.Date];
+            foreach (var item in incomeItems)
+            {
+                var row = IIT.Rows[IIT.Rows.Add()] as DataGridViewIncomeRow;
+                if (row != null)
+                {
+                    row.Item = item;
+                }
+            }
+        }
+
         private static void CalculateMoneyLeft(object sender, EventArgs eventArgs)
         {
             double income = DB.DBManager.IncomeData.Sum(date => date.Value.Sum(item => item.Summary));
             double spend = DB.DBManager.SpendData.Sum(date => date.Value.Sum(item => item.Price * item.Amount));
-            MainWindow.moneyLeftLabel.Text = (income - spend).ToString("C2");
+            Window.moneyLeftLabel.Text = (income - spend).ToString("C2");
         }
     }
 

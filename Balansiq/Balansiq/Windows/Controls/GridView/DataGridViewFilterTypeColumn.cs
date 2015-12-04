@@ -56,9 +56,18 @@ namespace Balansiq.Windows.Controls.GridView
             DialogResult res = MessageBox.Show(message, "Удаление типа расходов", MessageBoxButtons.OKCancel);
             if (res == DialogResult.OK)
             {
-                this.DataGridView.Columns.Remove(this);
-                // delete all including cells or move them to others?
+                // move filters to others
+                List<SpendFilter> others = DB.DBManager.SpendFilters.FirstOrDefault(k => k.Key.Id == -1).Value;
+                foreach (var filter in DB.DBManager.SpendFilters[this.FilterType])
+                {
+                    filter.Type = -1;
+                    others.Add(filter);
+                    DB.DBManager.CreateOrUpdateItem(filter);
+                }
+                DB.DBManager.SpendFilters.Remove(this.FilterType);
                 DB.DBManager.DeleteItem(this.FilterType);
+
+                this.DataGridView.Columns.Remove(this);
             }
         }
 

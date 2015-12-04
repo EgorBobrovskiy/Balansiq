@@ -14,9 +14,14 @@ namespace Balansiq.DB.Entities
         [NotNull]
         public double Summary { get; set; }
         [ForeignKey]
-        public int? IFilter { get; set; }
+        public long? IFilter { get; set; }
         [NotNull]
         public DateTime IDate { get; set; }
+        [Ignore]
+        public new bool IsEmpty
+        {
+            get { return this.Description == string.Empty && this.Summary == 0.0 && !this.IFilter.HasValue; }
+        }
         [Ignore]
         public static new KeyValuePair<Balansiq.DB.DataTableType, string>? ForeignKey
         {
@@ -26,8 +31,9 @@ namespace Balansiq.DB.Entities
             }
         }
 
-        public IncomeItem() : this(null, DateTime.MinValue, null, 0.0, "") { }
-        public IncomeItem(int? id, DateTime date, int? filter, double summary, string description) : base(id)
+        public IncomeItem() : this(DateTime.MinValue) { }
+        public IncomeItem(DateTime date) : this(null, date.Date, null, 0.0, string.Empty) { }
+        public IncomeItem(long? id, DateTime date, long? filter, double summary, string description) : base(id)
         {
             IDate = date;
             IFilter = filter;

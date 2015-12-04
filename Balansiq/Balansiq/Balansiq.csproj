@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="Windows\Controls\GridView\DataGridViewFilterCell.cs" />
     <Compile Include="Windows\Controls\GridView\DataGridViewFilterTypeColumn.cs" />
+    <Compile Include="Windows\Controls\GridView\DataGridViewIncomeRow.cs" />
     <Compile Include="Windows\Controls\GridView\DataGridViewSpendRow.cs" />
     <Compile Include="Windows\Controls\MainControl.cs" />
     <Compile Include="DB\DBAttributes.cs" />
