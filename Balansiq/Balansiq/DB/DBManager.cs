@@ -326,5 +326,24 @@ namespace Balansiq.DB
             }
             return null;
         }
+
+        public static Dictionary<string, double> GetSpendValuesForPeriod(List<SpendFilter> selection, DateTime from, DateTime to)
+        {
+            Dictionary<string, double> ret = new Dictionary<string, double>();
+
+            foreach (var filter in selection)
+            {
+                double value = SpendData
+                    .Where(kvp => kvp.Key >= from.Date && kvp.Key <= to.Date)
+                    .Select(kvp => kvp.Value
+                        .Where(item => item.SFilter == filter.Id)
+                        .Select(item => item.Price * item.Amount)
+                        .Sum())
+                    .Sum();
+                ret.Add(filter.Name, value);
+            }
+
+            return ret;
+        }
     }
 }

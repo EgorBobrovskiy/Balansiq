@@ -8,15 +8,16 @@ using System.Drawing;
 using System.Data;
 using Balansiq.DB;
 using Balansiq.DB.Entities;
-using Balansiq.Windows.Controls.GridView;
+using Balansiq.Pages.Controls.GridView;
 
-namespace Balansiq.Windows.Controls
+namespace Balansiq.Pages.Controls
 {
     public abstract class MainControl
     {
         public static DataGridViewCellStyle CellTemplate { get; protected set; }
         public static DataGridViewCellStyle CellTemplateAlt { get; protected set; }
         private static MainWindow Window;
+        private static AnalysisReport Report;
         private static bool UpdatingSFG = false;
 
         public static void InitComponents(MainWindow mainWindow)
@@ -28,6 +29,9 @@ namespace Balansiq.Windows.Controls
             FillIncomeFiltersTable();
             FillSpendItemsTable();
             FillIncomeItemsTable();
+            Report = new AnalysisReport(Window);
+            Report.Init();
+
             Window.datePicker.Value = DateTime.Now.Date;
 
             CalculateMoneyLeft(null, null);

@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Windows\Controls\AnalysisReport.cs" />
     <Compile Include="Windows\Controls\GridView\DataGridViewFilterCell.cs" />
     <Compile Include="Windows\Controls\GridView\DataGridViewFilterTypeColumn.cs" />
     <Compile Include="Windows\Controls\GridView\DataGridViewIncomeRow.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="DB\Entities\SpendFilter.cs" />
     <Compile Include="DB\Entities\SpendFilterType.cs" />
     <Compile Include="DB\Entities\SpendItem.cs" />
+    <Compile Include="Windows\Controls\TreeViewControl.cs" />
     <Compile Include="Windows\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

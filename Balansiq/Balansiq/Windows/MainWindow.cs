@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Balansiq.DB;
 using Balansiq.DB.Entities;
-using Balansiq.Windows.Controls;
+using Balansiq.Pages.Controls;
 
 namespace Balansiq
 {

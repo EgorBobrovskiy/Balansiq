@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Balansiq.DB.Entities;
 
-namespace Balansiq.Windows.Controls.GridView
+namespace Balansiq.Pages.Controls.GridView
 {
     public class DataGridViewFilterCell : DataGridViewTextBoxCell
     {
