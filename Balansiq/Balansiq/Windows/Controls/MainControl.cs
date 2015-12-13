@@ -45,6 +45,9 @@ namespace Balansiq.Pages.Controls
                     case 1: 
                         UpdateIncomeItemsTable(Window.incomeGrid, Window.datePicker.Value.Date);
                         break;
+                    case 2:
+                        TreeViewControl.FillSpendFilters(Window.AnalysisFiltersTree);
+                        break;
                 }
             };
         }

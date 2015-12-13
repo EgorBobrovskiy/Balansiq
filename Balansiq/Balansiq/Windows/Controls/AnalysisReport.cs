@@ -75,11 +75,10 @@ namespace Balansiq.Pages.Controls
             foreach (var value in values)
             {
                 DataPoint point = series.Points.Add(new[] { value.Value });
-                point.IsValueShownAsLabel = true;
-                point.Label = (value.Value / total).ToString("P1");
+                double pointLabelValue = value.Value / total;
+                point.Label = value.Value > 0 ? pointLabelValue.ToString("P1") : string.Empty;
                 point.LabelToolTip = point.LegendToolTip = value.Value.ToString("C2");
                 point.LegendText = point.ToolTip = value.Key;
-                
             }
             chart.Series.Add(series);
 
@@ -118,7 +117,7 @@ namespace Balansiq.Pages.Controls
             NoDataAnnotation.Text = "Нет данных для отображения!";
             NoDataAnnotation.Alignment = ContentAlignment.MiddleCenter;
             NoDataAnnotation.Visible = false;
-            NoDataAnnotation.Font = new Font(NoDataAnnotation.Font.FontFamily, 13, FontStyle.Underline);
+            NoDataAnnotation.Font = new Font(NoDataAnnotation.Font.FontFamily, 13, FontStyle.Regular);
             NoDataAnnotation.X = 0;
             NoDataAnnotation.Y = 0;
             Window.Chart.Annotations.Add(NoDataAnnotation);

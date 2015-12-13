@@ -19,7 +19,7 @@ namespace Balansiq.DB
         {
             if (_connection == null)
             {
-                _connection = new SQLiteConnection(string.Format(source, DBNameTest, "3", "true"), true);
+                _connection = new SQLiteConnection(string.Format(source, DBName, "3", "true"), true);
                 _connection.Open();
                 DBManager.CheckTables();
             }
